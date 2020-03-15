@@ -11,16 +11,20 @@ export default function Login({ history }) {
     async function handleSubmit(e) {
         e.preventDefault();
 
-        console.log(username);
+        const response = await api.post('/devs', {
+            username
+        });
 
-        history.push('/main');
+        const { _id } = response.data;
+
+        history.push(`/dev/${_id}`);
     }
 
     return (
         <div className="login-container">
             <form onSubmit={handleSubmit}>
                 <img src={logo} alt="Tindev" />
-                <input 
+                <input
                     placeholder="Type your user on github"
                     value={username}
                     onChange={e => setUsername(e.target.value)}
